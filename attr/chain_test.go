@@ -7,11 +7,15 @@ import (
 	"testing"
 )
 
-func TestEmojiLevelFunc(t *testing.T) {
+func TestReplaceAttrChain(t *testing.T) {
+
+	replace_attr := ReplaceAttrChain([]func(groups []string, a slog.Attr) slog.Attr{
+		EmojiLevelFunc(),
+	})
 
 	th := slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
 		Level:       LevelTrace,
-		ReplaceAttr: EmojiLevelFunc(),
+		ReplaceAttr: replace_attr,
 	})
 
 	logger := slog.New(th)
